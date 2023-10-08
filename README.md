@@ -134,6 +134,124 @@ print(autocomplete("hello"))
 
 </details>
 
+## Examples
+
+Below are some simple examples (and inspirations):
+
+### Simple App — Yahoo Search
+
+Below is a simple app that implements Yahoo searching right in your terminal.
+
+```python
+from yahoo_search import search
+
+while True:
+    query = input("search: ")
+    result = search(query)
+
+    if result.card:
+        # if there's a wikipedia definition
+        print("meaning", result.card.heading)
+        print(result.card.text)
+
+    for page in result.pages:
+        print(page.title, page.link)
+        print(page.text)
+
+    for search in result.related_searches:
+        print("related search: ", search.text)
+```
+
+## Minutely News — Yahoo News
+
+Tired of "hourly" or "daily" news? Try minutely, and let them fill into your mind... full of news.
+
+```python
+import time
+
+from yahoo_search import search_news
+
+keywords = ("news", "taiwan", "usa", "chocolate")
+current = 0
+
+while True:
+    result = search_news(keywords[current])
+    for news in result.news:
+        print(news.title)
+        print(news.text)
+        print()
+
+    # loop through the keywords
+    current += 1
+    current %= len(keywords)
+
+    time.sleep(60)
+```
+
+## Video Previewer API — Yahoo Videos
+
+We love public APIs, so let's make our own.
+
+```python
+import fastapi
+from yahoo_search import search_videos
+
+app = fastapi.FastAPI()
+
+@app.get("/preview")
+def preview_video(query: str):
+    # takes the URL param
+    res = search_videos(query)
+    return {
+        "url": res.videos[0].video_preview
+    }
+```
+## Weather Forecast App — Yahoo Weather
+
+Nawh, I ain't gonna setup a whole Flask app for this 💀💀
+
+Terminal app is enough.
+
+```python
+from yahoo_search import weather
+
+res = weather()
+
+print("Forecast")
+
+for day, forecast in res.forecast.items():
+    print(
+        day,
+        "-", 
+        forecast.weather.text,
+        forecast.precipitation.percentage,
+        forecast.fahrenheit.highest,
+        "/",
+        forecast.fahrenheit.lowest
+    )
+```
+
+## Extra: Async
+
+If you're working with coroutines, such as Discord bots or FastAPI, you can wrap it into async.
+
+(The below code structure is from [Stackoverflow](https://stackoverflow.com/questions/43241221/how-can-i-wrap-a-synchronous-function-in-an-async-coroutine).)
+
+```python
+import asyncio
+
+from yahoo_search import search
+
+
+async def asearch(loop, query):
+    # None uses the default executor (ThreadPoolExecutor)
+    await loop.run_in_executor(
+        None, 
+        search, 
+        query
+    )
+```
+
 ## Models & Functions Definitions
 
 Below are the models & functions type definitions.
@@ -245,3 +363,7 @@ def autocomplete(query: str) -> List[str]: ...
 ```
 
 </details>
+
+---
+
+No, this time I'm not bored. I just want to practice webscraping.
