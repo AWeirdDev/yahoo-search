@@ -1,0 +1,35 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "yahoo-search"
+version = "0.6"
+description = "Search anything on Yahoo: web pages, news, videos, autocomplete, and weather."
+keywords = ["search", "yahoo", "google", "web", "news", "videos", "autocomplete", "weather"]
+authors = [
+  { name = "AWeirdDev", email = "aweirdscratcher@gmail.com" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3"
+dependencies = [
+  "httpx",
+  "pydantic",
+  "selectolax",
+  "urllib3"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/AWeirdScratcher/yahoo-search"
+"Bug Tracker" = "https://github.com/AWeirdScratcher/yahoo-search/issues"
+
+[tool.setuptools]
+packages = [
+    "yahoo_search"
+]

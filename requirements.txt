@@ -1,0 +1,4 @@
+httpx
+pydantic
+selectolax
+urllib3
