@@ -3,8 +3,8 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "yahoo-search"
-version = "0.6"
+name = "yahoo-search-py"
+version = "0.2"
 description = "Search anything on Yahoo: web pages, news, videos, autocomplete, and weather."
 keywords = ["search", "yahoo", "google", "web", "news", "videos", "autocomplete", "weather"]
 authors = [
